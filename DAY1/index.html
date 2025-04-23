@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        console.log("start")
+
+        function print(m,n){
+            setTimeout(()=>{
+                for(let i=m;i<=n;i++){
+                    console.log(i)
+                }
+            },5000) // 5 sec
+        }
+        
+        function message(){
+            console.log("Number printed")
+        }
+
+        print(1,500)
+        message();
+
+        
+    </script>
+</body>
+</html>

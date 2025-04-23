@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // async and await and fetching the data
+
+        function get(){
+            let demo = function(a,b){
+                return a+b;
+            }
+            console.log(demo(10,20)) // 30
+        }
+
+       async function getData1(){
+            let resultFromserver =await fetch("https://jsonplaceholder.typicode.com/posts")
+            console.log(await resultFromserver.json())
+        }
+
+        get();
+        getData1();
+
+
+
+
+    </script>
+</body>
+</html>
