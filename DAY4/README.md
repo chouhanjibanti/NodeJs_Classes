@@ -1,19 +1,16 @@
-Module 
+Module :- ....
 
 // we can create the server
 const http = require("http)
 
-// we can file handling // create , copy , write , read , append 
+// we can file handling // create , copy , write , read , append
 const file = require("fs)
 
-// we path 
+// we path
 const path = require("path)
 
+File handling :-
 
-File handling :- 
-
--> create file 
-  writeFileSync
-  writeFile
-
-  
+-> create file
+writeFileSync
+writeFile
