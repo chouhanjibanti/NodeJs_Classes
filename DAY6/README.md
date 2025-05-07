@@ -1,14 +1,15 @@
-url understanding 
-npm -> node packages manager 
+url understanding
+npm -> node packages manager
 
-http 
+http
 fs
 url
 
-QueryString :- 
+QueryString :-
 https://www.youtube.com/results?search_query=codewithharry
 
-QueryParaSting :-   k=v
+QueryParaSting :- k=v
 http://localhost:8000/about?myName=shubham
 
 
+https://www.youtube.com/results?search_query=bhajan
