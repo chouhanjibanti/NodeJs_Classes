@@ -8,25 +8,8 @@
  1746709744599: POST : /api/users
 
 
-app.post("/api/users", async (req,res)=>{
-   const body =  req.body;
-   if(
-    !body || 
-    !body.firstName ||
-    !body.lastName ||
-    !body.email ||
-    !body.jobTitle ||
-    !body.Gender
-   ){
-    return res.status(400).json({msg:"all field are required"})
-   }
+ 1746792907625: GET : /api/users/681cac4da9d6b127fa84d4e3
 
-   const result = await User.create({
-       firstName : body.firstName,
-       lastName : body.lastName,
-       email : body.email,
-       jobTitle : body.jobTitle,
-       Gender: body.Gender,
-   });
-   return res.json(200).json({msg: "successfully"})
-})
+ 1746794563730: PATCH : /api/users/681cac4da9d6b127fa84d4e3
+
+ 1746794727952: DELETE : /api/users/681cac4da9d6b127fa84d4e3

@@ -1,7 +1,6 @@
-const express = require("express")   // npm init -y // npm install express //  npm install mongoose 
-const fs = require("fs")
-const mongoose = require("mongoose")
-
+const express = require("express"); // npm init -y // npm install express //  npm install mongoose
+const fs = require("fs");
+const mongoose = require("mongoose");
 
 // app initi.
 const app = express();
@@ -9,92 +8,120 @@ const PORT = 8000; // port
 
 // connection
 // we will connect through mongoose
-mongoose.connect("mongodb://127.0.0.1:27017/debugshala")
-.then(()=>{ console.log("connected to database")})
-.catch((err)=>{ console.log("mongo erro",err)})
+mongoose
+  .connect("mongodb://127.0.0.1:27017/debugshala")
+  .then(() => {
+    console.log("connected to database");
+  })
+  .catch((err) => {
+    console.log("mongo erro", err);
+  });
 
-
-// we will create the schema 
+// we will create the schema
 const userSchema = new mongoose.Schema(
-    {
-        firstName:{
-            type:String,
-            required:true,
-        },
-        lastName:{
-            type:String,
-        },
-        email:{
-            type: String,
-            required:true,
-            unique:true,
-        },
-        jobTitle :{
-            type:String,
-        },
-        Gender:{
-            type:String,
-        },
+  {
+    firstName: {
+      type: String,
+      required: true,
     },
-    { timestamps :true}
-)
+    lastName: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    jobTitle: {
+      type: String,
+    },
+    Gender: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
 
 // model create
-const User = mongoose.model("user",userSchema)
+const User = mongoose.model("user", userSchema);
 
-
-// middleware 
-app.use(express.urlencoded({extended:false}))  // To parse URL-encoded bodies
-app.use(express.json());  
-
+// middleware
+app.use(express.urlencoded({ extended: false })); // To parse URL-encoded bodies
+app.use(express.json());
 
 // second middleware
-app.use((req,res,next)=>{
-    console.log("from second middleware")
-    next();
-})
+app.use((req, res, next) => {
+  console.log("from second middleware");
+  next();
+});
 
-// third middle 
-app.use((req,res,next)=>{
-    fs.appendFile("test.txt",`\n ${Date.now()}: ${req.method} : ${req.path}\n`,(err)=>{
-        if(err){console.log("error in appending file",err)}
-        next();
-    })
-})
+// third middle
+app.use((req, res, next) => {
+  fs.appendFile(
+    "test.txt",
+    `\n ${Date.now()}: ${req.method} : ${req.path}\n`,
+    (err) => {
+      if (err) {
+        console.log("error in appending file", err);
+      }
+      next();
+    }
+  );
+});
 
 // restAPI
 
 // post
-app.post("/api/users", async (req,res)=>{
-   const body =  req.body;
-   if(
-    !body || 
+app.post("/api/users", async (req, res) => {
+  const body = req.body;
+  if (
+    !body ||
     !body.firstName ||
     !body.lastName ||
     !body.email ||
     !body.jobTitle ||
     !body.Gender
-   ){
-    return res.status(400).json({msg:"all field are required"})
-   }
-   const result = await User.create({
-       firstName : body.firstName,
-       lastName : body.lastName,
-       email : body.email,
-       jobTitle : body.jobTitle,
-       Gender: body.Gender,
-   });
-   return res.json(200).json({msg: result})
-})
-
+  ) {
+    return res.status(400).json({ msg: "all field are required" });
+  }
+  const result = await User.create({
+    firstName: body.firstName,
+    lastName: body.lastName,
+    email: body.email,
+    jobTitle: body.jobTitle,
+    Gender: body.Gender,
+  });
+  return res.json(200).json({ msg: result });
+});
 
 // get
-app.get("/api/users", async (req,res)=>{
-    const allDbUsers = await User.find({})
-    return res.json(allDbUsers);
-})
+app.get("/api/users", async (req, res) => {
+  const allDbUsers = await User.find({});
+  return res.json(allDbUsers);
+});
+
+// data get by id
+app.get("/api/users/:id", async (req, res) => {
+  const user1 = await User.findById(req.params.id);
+  if (!user1) {
+    return res.status(400).json({ error: "user not found" });
+  }
+  return res.status(200).json(user1);
+});
+
+// data update by id
+app.patch("/api/users/:id", async (req, res) => {
+  await User.findByIdAndUpdate(req.params.id, { lastName: "sharmaji" });
+  return res.status(200).json({ msg: "data updated" });
+});
+
+// data delete by id
+app.delete("/api/users/:id", async (req, res) => {
+  await User.findByIdAndDelete(req.params.id);
+  return res.status(200).json({ msg: "data deleted" });
+});
 
 // port
-app.listen(PORT,()=>{
-    console.log(`server started.......${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`server started.......${PORT}`);
+});
