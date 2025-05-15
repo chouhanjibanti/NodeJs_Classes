@@ -19,11 +19,11 @@
        <tbody>
          <% users.forEach(user =>{ %>
               <tr>
-                <td><%= user.name></td>
-                <td><%= user.email></td>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
                 <td>
-                    <a href="">Edit</a>
-                    <a href="">Delete</a>
+                   <a href="/edit/<%= user.id %>">change</a>
+                   <a href="/delete/<%= user.id %>">Delete</a>   
                 </td>
               </tr>
        <%  }) %>
