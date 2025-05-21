@@ -1,0 +1,8 @@
+register
+login
+getAllStudent
+getStudentById
+getStudentByName
+deleteStudentById
+deleteStudentByName
+updateStudent
